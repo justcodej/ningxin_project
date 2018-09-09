@@ -1,0 +1,27 @@
+<style lang="less">
+</style>
+
+<template lang="pug">
+  view.container Message
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Message extends wepy.page {
+    config = {
+      navigationBarTitleText: '在线留言'
+    }
+    components = {
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+  }
+</script>

@@ -1,0 +1,26 @@
+<style lang="less">
+</style>
+<template lang="pug">
+  view.container Process
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Process extends wepy.page {
+    config = {
+      navigationBarTitleText: '宁鑫流程'
+    }
+    components = {
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+  }
+</script>

@@ -1,4 +1,12 @@
 <style lang="less">
+page{
+  background-size: 12rpx 12rpx;
+  background-color: #212024;
+  background-image: linear-gradient(-45deg, rgba(25, 25, 25, .5) 25%, transparent 25%,
+                      transparent 50%, rgba(25, 25, 25, .5) 50%, rgba(25, 25, 25, .5) 75%,
+                      transparent 75%, transparent);
+  color: #fff;
+}
 .container {
   height: 100%;
   display: flex;
@@ -16,14 +24,49 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/index/index',
+      'pages/process/process',
+      'pages/message/message',
+      'pages/contact/contact'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#313131',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
+      navigationBarTextStyle: 'white',
+      backgroundColor: '#313131'
+    },
+    tabBar: {
+      'list': [{
+        'pagePath': 'pages/index/index',
+        'text': '首页',
+        'iconPath': './images/index_tab_icon.png',
+        'selectedIconPath': './images/ICON_SHOUYE_01@2x.png'
+      }, {
+        'pagePath': 'pages/process/process',
+        'text': '宁鑫流程',
+        'iconPath': './images/process_tab_icon.png',
+        'selectedIconPath': './images/process_tab_icon2x.png'
+      }, {
+        'pagePath': 'pages/message/message',
+        'text': '在线留言',
+        'iconPath': './images/ICON_LIUYAN_02@2x.png',
+        'selectedIconPath': './images/message_tab_icon.png'
+      }, {
+        'pagePath': 'pages/contact/contact',
+        'text': '联系我们',
+        'iconPath': './images/ICON_HUISE_LIANXI@2x.png',
+        'selectedIconPath': './images/contact_tab_icon.png'
+      }],
+      'color': '#f8f8f8',
+      'selectedColor': '#ebc497',
+      'backgroundColor': '#313131'
+    },
+    'networkTimeout': {
+      'request': 10000,
+      'downloadFile': 10000
+    },
+    'debug': false
   }
 
   globalData = {
