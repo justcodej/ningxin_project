@@ -1,8 +1,45 @@
 <style lang="less">
+.container{
+  padding: 30rpx;
+  font-size: 32rpx;
+  color: #EBC497;
+  .input-control{
+    width: 100%;
+    input{
+      padding: 10rpx;
+      border: 2rpx solid #FFEBC497;
+      border-radius: 6rpx;
+    }
+  }
+  .button{
+    width: 100%;
+    button{
+      background-color: #EBC497;
+    }
+  }
+}
 </style>
 
 <template lang="pug">
-  view.container Message
+  view.container
+    view.input-control
+      input(placeholder='请输入您的姓名')
+    view.input-control
+      input(placeholder='请输入您的性别')
+    view.input-control
+      input(placeholder='请输入您的手机号')
+    view.input-control
+      input(placeholder='请输入您的地址')
+    view.input-control
+      input(placeholder='请输入您的文化程度')
+    view.input-control
+      input(placeholder='请输入您的毕业院校')
+    view.input-control
+      input(placeholder='请输入您的所学专业')
+    view.input-control
+      input(placeholder='请输入您的微信号')
+    view.button
+      button 提交
 </template>
 
 <script>

@@ -1,7 +1,65 @@
 <style lang="less">
+.container{
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  color: #EBC497;
+  font-size: 32rpx;
+  .menu{
+    width: 100%;
+    height: 100%;
+    .item{
+      margin: 40rpx;
+      background-color: #353439;
+      display: flex;
+      padding: 40rpx;
+      align-items: center;
+      .poster{
+        margin-right: 40rpx;
+        image{
+          display: block;
+          width: 120rpx;
+          height: 120rpx;
+        }
+      }
+      .text{
+        overflow: hidden;
+        width: 430rpx;
+        .icon{
+          display: inline-block;
+          width: 17rpx;
+          height: 32rpx;
+          margin-top: 10rpx;
+          float: right;
+        }
+      }
+    }
+  }
+}
 </style>
 <template lang="pug">
-  view.container Process
+  view.container
+    view.menu
+      view.item
+        view.poster
+          image(src='../../images/code8@2x.png')
+        view.text 登录官网
+          view.icon
+      view.item
+        view.poster
+          image(src='../../images/code8@2x.png')
+        view.text 登录MT4教程
+          view.icon
+      view.item
+        view.poster
+          image(src='../../images/code8@2x.png')
+        view.text 宁鑫入金教程
+          view.icon
+      view.item
+        view.poster
+          image(src='../../images/code8@2x.png')
+        view.text 宁鑫托管流畅
+          view.icon
 </template>
 
 <script>

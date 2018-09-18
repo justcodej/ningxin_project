@@ -1,4 +1,5 @@
 <style lang="less">
+@import './wxParse/wxParse.wxss';
 page{
   background-size: 12rpx 12rpx;
   background-color: #212024;
@@ -6,6 +7,7 @@ page{
                       transparent 50%, rgba(25, 25, 25, .5) 50%, rgba(25, 25, 25, .5) 75%,
                       transparent 75%, transparent);
   color: #fff;
+  height: 100vh;
 }
 .container {
   height: 100%;
@@ -41,12 +43,12 @@ export default class extends wepy.app {
         'pagePath': 'pages/index/index',
         'text': '首页',
         'iconPath': './images/index_tab_icon.png',
-        'selectedIconPath': './images/ICON_SHOUYE_01@2x.png'
+        'selectedIconPath': './images/ICON_SHOUYE_01@2xx.png'
       }, {
         'pagePath': 'pages/process/process',
         'text': '宁鑫流程',
         'iconPath': './images/process_tab_icon.png',
-        'selectedIconPath': './images/process_tab_icon2x.png'
+        'selectedIconPath': './images/process_tab_icon2xx.png'
       }, {
         'pagePath': 'pages/message/message',
         'text': '在线留言',

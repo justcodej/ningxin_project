@@ -1,11 +1,150 @@
 <style lang="less">
+.container{
+  font-size: 32rpx;
+  color: #EBC497;
+  .banner{
+    position: relative;
+    height: 340rpx;
+    width: 100%;
+    overflow: visible;
+    swiper{
+      width: 100%;
+      height: 100%;
+      .item{
+        width: 100%;
+        height: 100%;
+        image{
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .banner-icon{
+      position: absolute;
+      bottom: -80rpx;
+      left: 24rpx;
+      width: 702rpx;
+      background-size: 12rpx 12rpx;
+      background-color: #2E2E31;
+      background-image: linear-gradient(-45deg, rgba(25, 25, 25, .5) 25%, transparent 25%,transparent 50%, rgba(25, 25, 25, .5) 50%, rgba(25, 25, 25, .5) 75%,transparent 75%, transparent);
+      border-radius: 6rpx;
+      .icon-menu{
+        display: flex;
+        margin: 0 auto;
+        .icon-item{
+          flex: 1;
+          padding: 20rpx;
+          image{
+            display: block;
+            width: 40rpx;
+            height: 40rpx;
+            margin: 0 auto 20rpx;
+          }
+          .text{
+            display: block;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  .content{
+    width: 100%;
+    overflow: visible;
+    transform: translateY(120rpx);
+    .title{
+      margin-bottom: 20rpx;
+      padding: 0 24rpx;
+    }
+    .event-list{
+      box-sizing: border-box;
+      padding: 0 24rpx;
+      .event-item{
+        height: 350rpx;
+        position: relative;
+        margin-bottom: 40rpx;
+        border-top-left-radius: 14rpx;
+        border-top-right-radius: 14rpx;
+        border: 2rpx solid #333232;
+        image{
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+        .text{
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 70rpx;
+          background-color: rgba(0,0,0,.5);
+          color: #fff;
+          text-align: center;
+          line-height: 70rpx;
+        }
+      }
+    }
+    .code-pic{
+      overflow: hidden;
+      width: 100%;
+      margin-bottom: 40rpx;
+      image{
+        display: block;
+        width: 235rpx;
+        height: 235rpx;
+        margin: 0 auto;
+      }
+      text{
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 20rpx;
+      }
+    }
+  }
+}
 </style>
 <template lang="pug">
-  view.container Index
+  view.container
+    view.banner
+      swiper(autoplay='{{autoPlay}}')
+        repeat(for='{{imgUrl}}')
+          swiper-item.item
+            image(src="{{item}}", class="slide-image", width="355")
+      view.banner-icon
+        view.icon-menu
+          view.icon-item
+            image(src='../../images/ICON_jieshao@2x.png')
+            text.text 公司介绍
+          view.icon-item
+            image(src='../../images/ICON_HUODONG@2x.png')
+            text.text 官方活动
+          view.icon-item
+            image(src='../../images/ICON_WENTI@2x.png')
+            text.text 常见问题
+          view.icon-item
+            image(src='../../images/ICON_BAO@2x.png')
+            text.text 鑫汇宝
+    view.content
+      view.title 官方活动
+      view.event-list
+        view.event-item
+          image(src='../../images/banner_img10@2x.png', alt='活动海报')
+          view.text
+            text 外汇-机遇-前景
+        view.event-item
+          image(src='../../images/banner_img10@2x.png', alt='活动海报')
+          view.text
+            text 外汇-机遇-前景
+      view.code-pic
+        image(src='../../images/code8@2x.png', alt='二维码')
+        text 扫描二维码添加微信
 </template>
 
 <script>
 import wepy from 'wepy'
+import WxParse from '@/wxParse/wxParse'
 
 export default class Index extends wepy.page {
   config = {
@@ -13,14 +152,46 @@ export default class Index extends wepy.page {
   }
   components = {
   }
-
   data = {
+    parserName: 'htmlParserName',
+    htmlParserTpl: {},
+    imgUrl: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    indicatorDots: true,
+    autoPlay: true
   }
 
   computed = {
   }
 
   methods = {
+  }
+
+  onLoad () {
+    this.htmlParse()
+    this.testRequest()
+  }
+  async testRequest () {
+  }
+  htmlParse () {
+    /**
+     * WxParse.wxParse(bindName , type, data, target,imagePadding)
+     * 1.bindName绑定的数据名(必填)
+     * 2.type可以为html或者md(必填)
+     * 3.data为传入的具体数据(必填)
+     * 4.target为Page对象,一般为this(必填)
+     * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+     */
+    try {
+      let htmlContent = WxParse.wxParse(this.parserName, 'html', '<p style=\'font-size: 32rpx; padding: 30rpx 0; text-align: center;\'>没有任何内容</p>', this)
+      this.htmlParserTpl = htmlContent[this.parserName]
+      this.$apply()
+    } catch (e) {
+      // console.warn('kinerHtmlParser:', '没有任何内容需要转换', e)
+    }
   }
 }
 </script>
