@@ -2,7 +2,7 @@
 @import './wxParse/wxParse.wxss';
 page{
   background-size: 12rpx 12rpx;
-  background-color: #212024;
+  background-color: #151416;
   background-image: linear-gradient(-45deg, rgba(25, 25, 25, .5) 25%, transparent 25%,
                       transparent 50%, rgba(25, 25, 25, .5) 50%, rgba(25, 25, 25, .5) 75%,
                       transparent 75%, transparent);

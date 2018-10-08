@@ -26,7 +26,7 @@
       left: 24rpx;
       width: 702rpx;
       background-size: 12rpx 12rpx;
-      background-color: #2E2E31;
+      background-color: rgb(34, 34, 36);
       background-image: linear-gradient(-45deg, rgba(25, 25, 25, .5) 25%, transparent 25%,transparent 50%, rgba(25, 25, 25, .5) 50%, rgba(25, 25, 25, .5) 75%,transparent 75%, transparent);
       border-radius: 6rpx;
       .icon-menu{
@@ -39,9 +39,11 @@
             display: block;
             width: 40rpx;
             height: 40rpx;
+            transform: translateY(5rpx);
             margin: 0 auto 20rpx;
           }
           .text{
+            transform: translateY(-5rpx);
             display: block;
             text-align: center;
           }

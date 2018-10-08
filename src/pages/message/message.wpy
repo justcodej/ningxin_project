@@ -1,20 +1,26 @@
 <style lang="less">
 .container{
+  display: block;
   padding: 30rpx;
   font-size: 32rpx;
-  color: #EBC497;
+  color: rgba(190, 158, 121, .5);
   .input-control{
     width: 100%;
+    margin-bottom: 16rpx;
     input{
       padding: 10rpx;
       border: 2rpx solid #FFEBC497;
-      border-radius: 6rpx;
+      border-radius: 8rpx;
+      color: #EBC497;
+      font-weight: lighter;
     }
   }
   .button{
     width: 100%;
+    padding-top: 40rpx;
     button{
       background-color: #EBC497;
+      color: #29292C;
     }
   }
 }
@@ -23,21 +29,21 @@
 <template lang="pug">
   view.container
     view.input-control
-      input(placeholder='请输入您的姓名')
+      input(placeholder='请输入您的姓名', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的性别')
+      input(placeholder='请输入您的性别', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的手机号')
+      input(placeholder='请输入您的手机号', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的地址')
+      input(placeholder='请输入您的地址', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的文化程度')
+      input(placeholder='请输入您的文化程度', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的毕业院校')
+      input(placeholder='请输入您的毕业院校', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的所学专业')
+      input(placeholder='请输入您的所学专业', placeholder-style='color: rgb(190, 158, 121, .5);')
     view.input-control
-      input(placeholder='请输入您的微信号')
+      input(placeholder='请输入您的微信号', placeholder-style='color: rgb(190, 158, 121, .5)')
     view.button
       button 提交
 </template>
