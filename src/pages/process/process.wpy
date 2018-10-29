@@ -1,84 +1,69 @@
-<style lang="less">
-.container{
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  color: #EBC497;
-  font-size: 32rpx;
-  .menu{
-    width: 100%;
-    height: 100%;
-    .item{
-      margin: 40rpx;
-      background-color: #353439;
-      display: flex;
-      padding: 40rpx;
-      align-items: center;
-      .poster{
-        margin-right: 40rpx;
-        image{
-          display: block;
-          width: 120rpx;
-          height: 120rpx;
-        }
-      }
+<style lang='less'>
+.process{
+  box-sizing: border-box;
+  padding: 30rpx;
+  .content{
+    background-color: #313131;
+    border-radius: 6rpx;
+    padding: 30rpx;
+    margin-top: 30rpx;
+    .title{
+      font-size: 36rpx;
+      padding-bottom: 6rpx;
+      border-bottom: 4rpx solid #EBC497;
+      box-sizing: border-box;
+      color: #EBC497;
+    }
+    .step{
+      font-size: 28rpx;
+      margin-top: 26rpx;
       .text{
-        overflow: hidden;
-        width: 430rpx;
-        .icon{
-          display: inline-block;
-          width: 17rpx;
-          height: 32rpx;
-          margin-top: 10rpx;
-          float: right;
-        }
+        line-height: 50rpx;
+        font-weight: lighter;
+        display: block;
       }
     }
+  }
+  .content:first-child{
+    margin-top: 0;
   }
 }
 </style>
-<template lang="pug">
-  view.container
-    view.menu
-      view.item
-        view.poster
-          image(src='../../images/code8@2x.png')
-        view.text 登录官网
-          view.icon
-      view.item
-        view.poster
-          image(src='../../images/code8@2x.png')
-        view.text 登录MT4教程
-          view.icon
-      view.item
-        view.poster
-          image(src='../../images/code8@2x.png')
-        view.text 宁鑫入金教程
-          view.icon
-      view.item
-        view.poster
-          image(src='../../images/code8@2x.png')
-        view.text 宁鑫托管流畅
-          view.icon
+
+<template lang='pug'>
+  view.process
+    view.content
+      text.title 苹果手机下载
+      view.step
+        text.text 第 ① 步：在苹果手机自带的APP Store软件中，搜索“MT4”。
+        text.text 第 ② 步：下载MT4。
+        text.text 第 ③ 步：选择“登录一个已有账户”。
+        text.text 第 ④ 步：在搜索一栏，输入“Prosper ourFinCapital”并搜索。
+        text.text 第 ⑤ 步：选择对应的登录方式
+    view.content
+      text.title 安卓手机下载
+      view.step
+        text.text 第 ① 步：在QQ浏览器中或手机应用宝中，搜“MT4”并下载（以QQ浏览器举例）。
+        text.text 第 ② 步：点击安装
+        text.text 第 ③ 步：MT4下载成功
 </template>
 
 <script>
-  import wepy from 'wepy'
-
-  export default class Process extends wepy.page {
-    config = {
-      navigationBarTitleText: '宁鑫流程'
-    }
-    components = {
-    }
-
-    data = {
-    }
-
-    computed = {
-    }
-
-    methods = {
-    }
+import wepy from 'wepy'
+export default class Process extends wepy.page {
+  config = {
+    navigationBarTitleText: '宁鑫流程'
   }
+  components = {
+  }
+
+  data = {
+  }
+
+  computed = {
+  }
+
+  methods = {
+  }
+}
 </script>

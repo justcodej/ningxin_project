@@ -27,9 +27,14 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index/index',
-      'pages/process/process',
+      'pages/tutorial/tutorial',
       'pages/message/message',
-      'pages/contact/contact'
+      'pages/contact/contact',
+      'pages/process/process',
+      'pages/faq/faq',
+      'pages/company/company',
+      'pages/hosting/hosting',
+      'pages/xinhuibao/xinhuibao'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -45,7 +50,7 @@ export default class extends wepy.app {
         'iconPath': './images/index_tab_icon.png',
         'selectedIconPath': './images/ICON_SHOUYE_01@2xx.png'
       }, {
-        'pagePath': 'pages/process/process',
+        'pagePath': 'pages/tutorial/tutorial',
         'text': '宁鑫流程',
         'iconPath': './images/process_tab_icon.png',
         'selectedIconPath': './images/process_tab_icon2xx.png'

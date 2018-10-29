@@ -1,0 +1,68 @@
+<style lang='less'>
+.hosting{
+  padding: 30rpx;
+  box-sizing: border-box;
+  background-color: #383838;
+  >.title{
+    font-weight: normal;
+    font-size: 40rpx;
+    margin-bottom: 20rpx;
+    margin-top: 80rpx;
+  }
+  .title:first-child{
+    margin-top: 0;
+    margin-bottom: 80rpx;
+  }
+  text{
+    display: block;
+    font-size: 28rpx;
+    line-height: 45rpx;
+  }
+  .info{
+    background-color: #fff;
+    .title{
+      margin-bottom: 0;
+      color: red;
+    }
+    .text{
+      text-indent: 40rpx;
+    }
+    text{
+      color: #333;
+      font-size: 24rpx;
+    }
+  }
+}
+</style>
+
+<template lang='pug'>
+  view.hosting
+    text.title 托管教程
+    text.text 1：选择合适的宁鑫产品
+    text.text 公司现有三款外汇资管产品，包括风险型和非风险型，用户可根据每种产品的风险与收益的关系灵活选择产品方案。
+    text.text 2：开立托管账户并且入金
+    text.text 3：签定《技术服务协议》
+    text.text 账户入金成功后，与宁鑫资管签定《技术服务协议》
+    text.text 4：技术部开始交易，根据合同结算本金和收益
+    text.title 托管协议书
+    view.info
+      text.title 1.产品介绍
+      text.text 三种产品，两款保本型，一款风险型产品。
+      text.text 保本固定收益产品；保本份盈利产品；风险型产品
+      text.title 2.合同周期
+      text.text 合同周期可选季度/半年/年
+      text.title 结算周期
+      text.text  结算周期可选 月结/季度结/年结/盈利 20%/盈利 30%/盈利 50%结算一次，保本固定收益产品可选月结/季度结/年结
+      text.title 公司盈利部分如何划分
+      text.text 客户出金至客户账号后，客户按合同盈利分成，三日之内把公司应得的盈利部分打款给公司公户。
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Hosting extends wepy.page {
+  config = {
+    navigationBarTitleText: '托管教程'
+  }
+}
+</script>
