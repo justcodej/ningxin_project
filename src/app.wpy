@@ -34,7 +34,8 @@ export default class extends wepy.app {
       'pages/faq/faq',
       'pages/company/company',
       'pages/hosting/hosting',
-      'pages/xinhuibao/xinhuibao'
+      'pages/xinhuibao/xinhuibao',
+      'pages/login/login'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -90,14 +91,10 @@ export default class extends wepy.app {
   }
   getUserInfo(cb) {
     const that = this
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo
-    }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
-      }
+    if (this.globalData.userInfo) return
+    wepy.getUserInfo().then(res => {
+      that.globalData.userInfo = res.userInfo
+      console.log(that.globalData.userInfo)
     })
   }
 }

@@ -171,12 +171,28 @@ export default class Index extends wepy.page {
 
   methods = {
   }
-
-  onLoad () {
-    this.htmlParse()
-    this.testRequest()
+  onShow () {
+    if (this.$parent.globalData.userInfo) return
+    // 查看是否授权
+    wepy.getSetting().then(res => {
+      if (res.authSetting['scope.userInfo']) {
+        this.$parent.getUserInfo()
+      } else {
+        wepy.showModal({
+          title: '注意',
+          showCancel: false,
+          confirmText: '好去授权',
+          content: '为了您更好的体验,请先同意授权'
+        }).then(res => {
+          wepy.navigateTo({
+            url: '../login/login'
+          })
+        })
+      }
+    })
   }
-  async testRequest () {
+  async onLoad () {
+    this.htmlParse()
   }
   htmlParse () {
     /**

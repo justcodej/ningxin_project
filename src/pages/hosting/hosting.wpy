@@ -64,5 +64,9 @@ export default class Hosting extends wepy.page {
   config = {
     navigationBarTitleText: '托管教程'
   }
+  methods = {
+  }
+  onLoad () {
+  }
 }
 </script>

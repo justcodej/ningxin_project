@@ -1,0 +1,24 @@
+<template lang='pug'>
+  div.login
+    button(type="primary", open-type="getUserInfo", bindgetuserinfo="getUserinfo") 授权
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Login extends wepy.page {
+  config = {
+    navigationBarTitleText: '登录'
+  }
+  methods = {
+    getUserinfo (e) {
+      this.$parent.globalData = e.detail
+      wepy.navigateBack()
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+
+</style>
