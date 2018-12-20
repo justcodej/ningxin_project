@@ -71,6 +71,7 @@ export default class NewsDetail extends wepy.page {
       this.content = res.data.data[0].content
       this.$apply()
       this.$invoke('htmlParser', 'htmlParserNotice')
+      wepy.setNavigationBarTitle({title: this.title})
     })
   }
   onLoad(options) {

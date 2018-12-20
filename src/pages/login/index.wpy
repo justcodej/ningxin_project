@@ -20,5 +20,16 @@ export default class Login extends wepy.page {
 </script>
 
 <style lang='less' scoped>
-
+  .login{
+    button{
+      display:block;
+      width: 700rpx;
+      background-color:#EBC497;
+      color:#29292C;
+      height:80rpx;
+      line-height:80rpx;
+      font-size:30rpx;
+      transform: translateY(20rpx);
+    }
+  }
 </style>

@@ -41,7 +41,7 @@
 <template lang="pug">
   view.container
     view.menu
-      web-view(src="https://www.ningxinziguan.com")
+      //- web-view(src="https://www.ningxinziguan.com")
         view.poster
           image(src='../../images/login_icon.png')
         view.text 登录官网

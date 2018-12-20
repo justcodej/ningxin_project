@@ -60,7 +60,7 @@ import wepy from 'wepy'
 import htmlParser from '@/common/htmlParser'
 export default class PageDetail extends wepy.page {
   config = {
-    navigationBarTitleText: '新闻详情'
+    navigationBarTitleText: '页面详情'
   }
   data = {
     content: ''
@@ -88,6 +88,7 @@ export default class PageDetail extends wepy.page {
       this.content = res.data.data.content
       this.$apply()
       this.$invoke('htmlParser', 'htmlParserNotice')
+      wepy.setNavigationBarTitle({title: res.data.data.title})
     })
   }
   onLoad(options) {
