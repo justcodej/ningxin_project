@@ -1,0 +1,80 @@
+<style lang='less'>
+.news-detail{
+  background-color: #383838;
+  padding: 30rpx;
+  box-sizing: border-box;
+  padding-bottom: 120rpx;
+  .title{
+    .text{
+      display: block;
+      font-size: 42rpx;
+    }
+    .time{
+      display: block;
+      text-align: right;
+      font-size: 26rpx;
+      margin-bottom: 20rpx;
+    }
+  }
+  >view{
+    margin-bottom: 24rpx;
+    .wxParse-inline{
+      font-size: 30rpx;
+      text-indent: 40rpx;
+    }
+  }
+}
+</style>
+
+<template lang='pug'>
+  view.news-detail
+    view.title
+      text.text {{title}}
+      text.time {{time}}
+    htmlParser(:parserContent.sync="content")
+</template>
+
+<script>
+import wepy from 'wepy'
+import htmlParser from '@/common/htmlParser'
+export default class NewsDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '新闻详情'
+  }
+  data = {
+    title: '',
+    time: '',
+    content: ''
+  }
+  components = {
+    htmlParser
+  }
+  methods = {
+  }
+  getNewsDetail (id) {
+    wepy.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    wepy.request({
+      url: this.$parent.globalData.baseUrl + '/getNewsDetail?id=' + id
+    }).then(res => {
+      if (res.data.code * 1 !== 200) {
+        wepy.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
+      wepy.hideLoading()
+      this.title = res.data.data[0].title
+      this.time = res.data.data[0].date.substring(0, 10)
+      this.content = res.data.data[0].content
+      this.$apply()
+      this.$invoke('htmlParser', 'htmlParserNotice')
+    })
+  }
+  onLoad(options) {
+    this.getNewsDetail(options.newsId)
+  }
+}
+</script>

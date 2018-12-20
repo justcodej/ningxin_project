@@ -1,0 +1,158 @@
+<style lang="less">
+.container{
+  display: block;
+  padding: 30rpx;
+  font-size: 32rpx;
+  color: rgba(190, 158, 121, .5);
+  .input-control{
+    width: 100%;
+    margin-bottom: 16rpx;
+    input,textarea{
+      padding: 10rpx;
+      border: 2rpx solid #8a7762;
+      border-radius: 8rpx;
+      color: #EBC497;
+      font-weight: lighter;
+    }
+    textarea{
+      display: block;
+      width: 665rpx;
+    }
+  }
+  .button{
+    width: 100%;
+    padding-top: 30rpx;
+    button{
+      display: block;
+      background-color: #EBC497;
+      color: #29292C;
+      height: 80rpx;
+      line-height: 80rpx;
+      font-size: 30rpx;
+    }
+  }
+}
+</style>
+
+<template lang="pug">
+  view.container
+    view.input-control
+      input(placeholder='请输入您的姓名', name='name', value="{{name}}", @input="changeName", placeholder-style='color: rgb(190, 158, 121, .5)')
+    view.input-control
+      input(placeholder='请输入您的Email', value="{{email}}", @input="changeEmail", placeholder-style='color: rgb(190, 158, 121, .5)')
+    view.input-control
+      input(placeholder='请输入您的手机号', type='number', @input="changeMobile", value="{{mobile}}", placeholder-style='color: rgb(190, 158, 121, .5)')
+    view.input-control
+      textarea(placeholder="留言(非必填项)", @input="changeMessage", value="{{message}}", placeholder-style='color: rgb(190, 158, 121, .5)')
+    view.button
+      button(@tap='handleSubmit') 提交
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Message extends wepy.page {
+    config = {
+      navigationBarTitleText: '在线留言'
+    }
+    components = {
+    }
+    data = {
+      name: '',
+      email: '',
+      mobile: '',
+      message: ''
+    }
+    computed = {
+    }
+    methods = {
+      changeName (e) {
+        this.name = e.detail.value
+        this.$apply()
+      },
+      changeEmail (e) {
+        this.email = e.detail.value
+        this.$apply()
+      },
+      changeMobile (e) {
+        this.mobile = e.detail.value
+        this.$apply()
+      },
+      changeMessage (e) {
+        this.message = e.detail.value
+        this.$apply()
+      },
+      handleSubmit (e) {
+        if (!this.name) {
+          wepy.showModal({
+            content: '姓名不能为空',
+            showCancel: false
+          })
+          return false
+        }
+        if (!this.email) {
+          wepy.showModal({
+            content: '性别不能为空',
+            showCancel: false
+          })
+          return false
+        }
+        if (!/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(this.email)) {
+          wepy.showModal({
+            content: '邮箱格式不正确',
+            showCancel: false
+          })
+          return false
+        }
+        if (!this.mobile) {
+          wepy.showModal({
+            content: '手机号不能为空',
+            showCancel: false
+          })
+          return false
+        }
+        if (!/(?:^1[3456789]|^9[28])\d{9}$/.test(this.mobile)) {
+          wepy.showModal({
+            content: '手机号格式不正确',
+            showCancel: false
+          })
+          return false
+        }
+        const options = {
+          name: this.name,
+          email: this.email,
+          phone: this.mobile,
+          message: this.message
+        }
+        wepy.showLoading({
+          title: '加载中...',
+          mask: true
+        })
+        wepy.request({
+          url: this.$parent.globalData.baseUrl + '/setContact',
+          data: options,
+          method: 'POST'
+        }).then(res => {
+          if (res.data.code !== 200) {
+            wepy.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+          wepy.hideLoading()
+          wepy.showModal({
+            content: res.data.msg,
+            showCancel: false
+          })
+          this.name = ''
+          this.email = ''
+          this.mobile = ''
+          this.message = ''
+          this.$apply()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
+</script>

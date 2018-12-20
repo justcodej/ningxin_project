@@ -1,5 +1,4 @@
 <style lang="less">
-@import './wxParse/wxParse.wxss';
 page{
   background-size: 12rpx 12rpx;
   background-color: #151416;
@@ -27,15 +26,13 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index/index',
-      'pages/tutorial/tutorial',
-      'pages/message/message',
-      'pages/contact/contact',
-      'pages/process/process',
-      'pages/faq/faq',
-      'pages/company/company',
-      'pages/hosting/hosting',
-      'pages/xinhuibao/xinhuibao',
-      'pages/login/login'
+      'pages/tutorial/index',
+      'pages/message/index',
+      'pages/contact/index',
+      'pages/newsDetail/index',
+      'pages/pageDetail/index',
+      'pages/news/index',
+      'pages/login/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -48,20 +45,20 @@ export default class extends wepy.app {
       'list': [{
         'pagePath': 'pages/index/index',
         'text': '首页',
-        'iconPath': './images/index_tab_icon.png',
-        'selectedIconPath': './images/ICON_SHOUYE_01@2xx.png'
+        'iconPath': './images/ICON_SHOUYE_01@2xx.png',
+        'selectedIconPath': './images/ICON_SHOUYE_01@2x.png'
       }, {
-        'pagePath': 'pages/tutorial/tutorial',
+        'pagePath': 'pages/tutorial/index',
         'text': '宁鑫流程',
         'iconPath': './images/process_tab_icon.png',
         'selectedIconPath': './images/process_tab_icon2xx.png'
       }, {
-        'pagePath': 'pages/message/message',
+        'pagePath': 'pages/message/index',
         'text': '在线留言',
         'iconPath': './images/ICON_LIUYAN_02@2x.png',
         'selectedIconPath': './images/message_tab_icon.png'
       }, {
-        'pagePath': 'pages/contact/contact',
+        'pagePath': 'pages/contact/index',
         'text': '联系我们',
         'iconPath': './images/ICON_HUISE_LIANXI@2x.png',
         'selectedIconPath': './images/contact_tab_icon.png'
@@ -78,7 +75,8 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null
+    userInfo: null,
+    baseUrl: 'https://ningxinziguan.com:3000/api'
   }
 
   constructor () {

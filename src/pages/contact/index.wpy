@@ -1,0 +1,34 @@
+<style lang="less">
+  .container{
+    image{
+      width: 80%;
+      margin-top: 100rpx;
+    }
+  }
+</style>
+
+<template lang="pug">
+  view.container
+    image(src='../../images/1581545055661_.pic_hd.png', mode="widthFix")
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Contact extends wepy.page {
+  config = {
+    navigationBarTitleText: '联系我们'
+  }
+  components = {
+  }
+
+  data = {
+  }
+
+  computed = {
+  }
+
+  methods = {
+  }
+}
+</script>

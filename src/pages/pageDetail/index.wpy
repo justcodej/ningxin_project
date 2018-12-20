@@ -1,0 +1,97 @@
+<style lang='less'>
+.page-detail{
+  padding: 20rpx;
+  box-sizing: border-box;
+  >view{
+    .wxParse-inline{
+      font-size: 28rpx;
+    }
+  }
+  .wxParse-div{
+    padding: 40rpx;
+    background-color: #383838;
+    border-radius: 6rpx;
+    margin-bottom: 24rpx;
+    .wxParse-h2{
+      margin: 0;
+      margin-bottom: 10rpx;
+      .wxParse-inline{
+        display: inline-block;
+        font-size: 36rpx;
+        color: #EBC497;
+        text-align: left;
+        padding-bottom: 10rpx;
+        border-bottom: 4rpx solid #fff;
+      }
+    }
+  }
+  .wxParse-ul{
+    margin: 0;
+    overflow: hidden;
+    margin-bottom: 40rpx;
+    .wxParse-li{
+      margin: 0;
+      overflow: hidden;
+      .wxParse-li-inner{
+        margin: 0;
+        overflow: hidden;
+        .wxParse-li-text{
+          overflow: hidden;
+        }
+      }
+    }
+  }
+  .wxParse-ul:last-child{
+    margin-bottom: 0;
+  }
+  .wxParse-div:last-child{
+    margin: 0;
+  }
+}
+</style>
+
+<template lang='pug'>
+  view.page-detail
+    htmlParser(:parserContent.sync="content")
+</template>
+
+<script>
+import wepy from 'wepy'
+import htmlParser from '@/common/htmlParser'
+export default class PageDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '新闻详情'
+  }
+  data = {
+    content: ''
+  }
+  components = {
+    htmlParser
+  }
+  methods = {
+  }
+  getPageDetail (id) {
+    wepy.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    wepy.request({
+      url: this.$parent.globalData.baseUrl + '/getPageDetail?id=' + id
+    }).then(res => {
+      if (res.data.code * 1 !== 200) {
+        wepy.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
+      wepy.hideLoading()
+      this.content = res.data.data.content
+      this.$apply()
+      this.$invoke('htmlParser', 'htmlParserNotice')
+    })
+  }
+  onLoad(options) {
+    this.getPageDetail(options.pageId)
+  }
+}
+</script>

@@ -1,6 +1,6 @@
 <style lang="less">
 .container{
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #EBC497;
   .banner{
     position: relative;
@@ -69,6 +69,8 @@
         border-top-left-radius: 14rpx;
         border-top-right-radius: 14rpx;
         border: 2rpx solid #333232;
+        border-radius: 10rpx;
+        overflow: hidden;
         image{
           display: block;
           height: 100%;
@@ -84,6 +86,9 @@
           color: #fff;
           text-align: center;
           line-height: 70rpx;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
       }
     }
@@ -113,32 +118,28 @@
       swiper(autoplay='{{autoPlay}}')
         repeat(for='{{imgUrl}}')
           swiper-item.item
-            image(src="{{item}}", class="slide-image", width="355")
+            image(src="{{item.url}}", class="slide-image", width="355")
       view.banner-icon
         view.icon-menu
-          view.icon-item
+          view.icon-item(@tap='toAbout')
             image(src='../../images/ICON_jieshao@2x.png')
             text.text 公司介绍
-          view.icon-item
+          view.icon-item(@tap='toNewsList')
             image(src='../../images/ICON_HUODONG@2x.png')
             text.text 官方活动
-          view.icon-item
+          view.icon-item(@tap='toFAQ')
             image(src='../../images/ICON_WENTI@2x.png')
             text.text 常见问题
-          view.icon-item
+          view.icon-item(@tap='toXinhuibao')
             image(src='../../images/ICON_BAO@2x.png')
             text.text 鑫汇宝
     view.content
       view.title 官方活动
-      view.event-list
-        view.event-item
-          image(src='../../images/banner_img10@2x.png', alt='活动海报')
+      scroll-view.event-list
+        view.event-item(wx:for='{{newsList}}', wx:key='item.id', @tap="toNewsDetail({{item.id}})")
+          image(src='{{item.poster}}', alt='{{item.title}}', lazy-load='true')
           view.text
-            text 外汇-机遇-前景
-        view.event-item
-          image(src='../../images/banner_img10@2x.png', alt='活动海报')
-          view.text
-            text 外汇-机遇-前景
+            text {{item.title}}
       view.code-pic
         image(src='../../images/code8@2x.png', alt='二维码')
         text 扫描二维码添加微信
@@ -146,7 +147,6 @@
 
 <script>
 import wepy from 'wepy'
-import WxParse from '@/wxParse/wxParse'
 
 export default class Index extends wepy.page {
   config = {
@@ -155,21 +155,81 @@ export default class Index extends wepy.page {
   components = {
   }
   data = {
-    parserName: 'htmlParserName',
-    htmlParserTpl: {},
-    imgUrl: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
-    indicatorDots: true,
+    imgUrl: [],
+    newsList: [],
     autoPlay: true
   }
 
   computed = {
   }
-
   methods = {
+    toNewsDetail (id) {
+      wepy.navigateTo({
+        url: '../newsDetail/index?newsId=' + id
+      })
+    },
+    toAbout () {
+      wepy.navigateTo({
+        url: '../pageDetail/index?pageId=20'
+      })
+    },
+    toXinhuibao () {
+      wepy.navigateTo({
+        url: '../pageDetail/index?pageId=21'
+      })
+    },
+    toFAQ () {
+      wepy.navigateTo({
+        url: '../pageDetail/index?pageId=22'
+      })
+    },
+    toNewsList () {
+      wepy.navigateTo({
+        url: '../news/index'
+      })
+    }
+  }
+  async getBannerList () {
+    wepy.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    let res = await wepy.request({
+      url: this.$parent.globalData.baseUrl + '/getBannerList',
+      method: 'GET'
+    })
+    if (res.data.code * 1 !== 200) {
+      wepy.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+    }
+    wepy.hideLoading()
+    this.imgUrl = res.data.data
+    this.$apply()
+  }
+  async getNews () {
+    wepy.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    let res = await wepy.request({
+      url: this.$parent.globalData.baseUrl + '/getNews',
+      method: 'GET'
+    })
+    if (res.data.code * 1 !== 200) {
+      wepy.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+    }
+    wepy.hideLoading()
+    this.newsList = res.data.data
+    this.$apply()
+  }
+  onLoad () {
+    this.getBannerList()
+    this.getNews()
   }
   onShow () {
     if (this.$parent.globalData.userInfo) return
@@ -185,31 +245,11 @@ export default class Index extends wepy.page {
           content: '为了您更好的体验,请先同意授权'
         }).then(res => {
           wepy.navigateTo({
-            url: '../login/login'
+            url: '../login/index'
           })
         })
       }
     })
-  }
-  async onLoad () {
-    this.htmlParse()
-  }
-  htmlParse () {
-    /**
-     * WxParse.wxParse(bindName , type, data, target,imagePadding)
-     * 1.bindName绑定的数据名(必填)
-     * 2.type可以为html或者md(必填)
-     * 3.data为传入的具体数据(必填)
-     * 4.target为Page对象,一般为this(必填)
-     * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
-     */
-    try {
-      let htmlContent = WxParse.wxParse(this.parserName, 'html', '<p style=\'font-size: 32rpx; padding: 30rpx 0; text-align: center;\'>没有任何内容</p>', this)
-      this.htmlParserTpl = htmlContent[this.parserName]
-      this.$apply()
-    } catch (e) {
-      // console.warn('kinerHtmlParser:', '没有任何内容需要转换', e)
-    }
   }
 }
 </script>

@@ -1,0 +1,100 @@
+<style lang="less">
+.container{
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  color: #EBC497;
+  font-size: 30rpx;
+  .menu{
+    width: 100%;
+    height: 100%;
+    .item{
+      margin: 24rpx;
+      background-color: #353439;
+      display: flex;
+      padding: 40rpx;
+      align-items: center;
+      border-radius: 6rpx;
+      .poster{
+        margin-right: 40rpx;
+        image{
+          display: block;
+          width: 120rpx;
+          height: 120rpx;
+        }
+      }
+      .text{
+        overflow: hidden;
+        width: 430rpx;
+        .icon{
+          display: inline-block;
+          width: 17rpx;
+          height: 32rpx;
+          margin-top: 10rpx;
+          float: right;
+        }
+      }
+    }
+  }
+}
+</style>
+<template lang="pug">
+  view.container
+    view.menu
+      web-view(src="https://www.ningxinziguan.com")
+        view.poster
+          image(src='../../images/login_icon.png')
+        view.text 登录官网
+          view.icon
+      view.item(@tap='toMT4')
+        view.poster
+          image(src='../../images/mt4_icon.png')
+        view.text 登录MT4教程
+          view.icon
+      view.item(@tap='toGoldEntry')
+        view.poster
+          image(src='../../images/process_icon.png')
+        view.text 宁鑫入金教程
+          view.icon
+      view.item(@tap='toProcess')
+        view.poster
+          image(src='../../images/trusteeship_icon.png')
+        view.text 宁鑫托管流程
+          view.icon
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Tutorial extends wepy.page {
+    config = {
+      navigationBarTitleText: '宁鑫流程'
+    }
+    components = {
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+      toMT4 () {
+        wepy.navigateTo({
+          url: '../pageDetail/index?pageId=23'
+        })
+      },
+      toProcess () {
+        wepy.navigateTo({
+          url: '../pageDetail/index?pageId=24'
+        })
+      },
+      toGoldEntry() {
+        wepy.navigateTo({
+          url: '../pageDetail/index?pageId=25'
+        })
+      }
+    }
+  }
+</script>

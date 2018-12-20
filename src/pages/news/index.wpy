@@ -1,0 +1,94 @@
+<style lang='less'>
+.event-list{
+  font-size: 32rpx;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  .event-item{
+    height: 350rpx;
+    position: relative;
+    margin-bottom: 40rpx;
+    border-top-left-radius: 14rpx;
+    border-top-right-radius: 14rpx;
+    border: 2rpx solid #333232;
+    border-radius: 10rpx;
+    overflow: hidden;
+    image{
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+    .text{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 70rpx;
+      background-color: rgba(0,0,0,.5);
+      color: #fff;
+      text-align: center;
+      line-height: 70rpx;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .event-item:first-child{
+    margin-top: 40rpx;
+  }
+}
+</style>
+
+<template lang='pug'>
+  view.news-list
+    scroll-view.event-list
+      view.event-item(wx:for='{{newsList}}', wx:key='item.id', @tap="toNewsDetail({{item.id}})")
+        image(src='{{item.poster}}', alt='{{item.title}}', lazy-load='true')
+        view.text
+          text {{item.title}}
+</template>
+
+<script>
+import wepy from 'wepy'
+import htmlParser from '@/common/htmlParser'
+export default class NewsList extends wepy.page {
+  config = {
+    navigationBarTitleText: '官方活动'
+  }
+  data = {
+    content: '',
+    newsList: []
+  }
+  components = {
+    htmlParser
+  }
+  methods = {
+    toNewsDetail (id) {
+      wepy.navigateTo({
+        url: '../newsDetail/index?newsId=' + id
+      })
+    }
+  }
+  async getNewsList (id) {
+    wepy.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    let res = await wepy.request({
+      url: this.$parent.globalData.baseUrl + '/getNews',
+      method: 'GET'
+    })
+    if (res.data.code * 1 !== 200) {
+      wepy.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+    }
+    wepy.hideLoading()
+    this.newsList = res.data.data
+    this.$apply()
+  }
+  onLoad(options) {
+    this.getNewsList()
+  }
+}
+</script>
